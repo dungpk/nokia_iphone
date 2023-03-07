@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Funny Circle</title>
+</head>
+<body>
+
+<div>
+    <p>
+        <span><b>NOKIA </b>
+            <br>
+            Tin soạn:
+            <input id = "nokia_send_id"  placeholder="soan tin">
+            <button name="button_nokia" type="button"  onclick="nokiaSend()">Gửi</button>
+        </span>
+
+        <span>
+            <br>
+            Tin nhận:
+            <input id = "nokia_receive_id" placeholder="tin nhan" >
+        </span>
+
+        <br>
+        Da gui:
+        <input id = "nokia_sent"  placeholder="Da gui">
+        <button name="buttonNokiaSent" type="button"  onclick="nokiaSent()">Hien thi</button>
+        <br>
+        Da nhan:
+        <input id = "nokia_box"  placeholder="Da gui">
+        <button name="buttonNokiaBox" type="button"  onclick="nokiaReceive()">Hien thi</button>
+        <br>
+    </p>
+    </p>
+    <p>
+        <span><b>IPHONE </b> </span>
+        <br>
+        Tin soạn:
+        <input id = "iphone_send_id" placeholder="soan tin">
+        <button name="button_iphone" type="button" onclick="iphoneSend()">Gửi</button>
+        </span>
+
+        <span>
+            <br>
+            Tin nhận:
+            <input id = "iphone_receive_id" placeholder="tin nhan">
+        </span>
+
+        <br>
+        Da gui:
+        <input id = "iphone_sent"  placeholder="Da gui">
+        <button name="buttonIphoneSent" type="button"  onclick="iphoneSent()">Hien thi</button>
+        <br>
+        Da nhan:
+        <input id = "iphone_box"  placeholder="Da gui">
+        <button name="buttonIphoneBox" type="button"  onclick="iphoneReceive()">Hien thi</button>
+        <br>
+    </p>
+
+</div>
+</body>
+
+<script>
+
+    function Mobible(){
+        this.inbox = new Array();
+        this.messSent = new Array();
+        this.texting = 0;
+
+        this.pushBox = function(text){
+           this.inbox.push(text);
+        }
+        this.pushSent = function(text)
+        {
+            this.messSent.push(text);
+        }
+        this.text = function(text){
+            this.texting = text;
+        }
+        this.Box = function()
+        {
+            let arr = new Array();
+            for(let i=0;i<this.inbox.length;i++)
+            {
+                arr += " Tin nhan thu:" +(i+1) +" :" + this.inbox[i]+";";
+            }
+            return arr;
+        }
+        this.Sent = function()
+        {
+            let arr = new Array();
+            for(let i=0;i<this.messSent.length;i++)
+            {
+                arr += " Tin gui thu " +(i+1) +": " + this.messSent[i]+";";
+            }
+            return arr;
+        }
+    }
+
+    let nokia = new Mobible;
+    let iphone =new Mobible;
+
+    function nokiaSend() {
+        let nokiaID = document.getElementById("nokia_send_id");
+        nokia.text(nokiaID.value);
+        document.getElementById("iphone_receive_id").value = nokia.texting;
+        nokia.pushSent(nokia.texting);
+        iphone.pushBox(iphone.texting);
+    }
+    function iphoneSend() {
+        let iphoneID = document.getElementById("iphone_send_id");
+        iphone.text(iphoneID.value);
+        document.getElementById("nokia_receive_id").value = iphone.texting;
+        iphone.pushSent(iphone.texting);
+        nokia.pushBox(nokia.texting);
+    }
+    function nokiaSent(){
+        let array = nokia.Sent();
+        let nokiaID = document.getElementById("nokia_sent");
+        nokiaID.value = array;
+    }
+
+    function iphoneSent(){
+        let array = iphone.Sent();
+        let iphoneID = document.getElementById("iphone_sent");
+        iphoneID.value = array;
+    }
+
+    function iphoneReceive(){
+        let array = iphone.Box();
+        let iphoneID = document.getElementById("iphone_box");
+        iphoneID.value = array;
+    }
+
+    function nokiaReceive(){
+        let array = nokia.Box();
+        let iphoneID = document.getElementById("nokia_box");
+        iphoneID.value = array;
+    }
+
+</script>
+
+</html>
